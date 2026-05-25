@@ -23,6 +23,10 @@
         "areaServed": ["USA", "South Africa", "Zimbabwe", "Namibia", "Botswana", "Eswatini", "Lesotho", "Mozambique", "Malawi", "Zambia"]
       }
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="emailjs.js"></script>
+
   </head>
   <body>
     <a class="skip-link" href="#quote">Skip to quote form</a>
@@ -585,7 +589,6 @@
             <p>Share your product category, project type, target volume and packaging requirements. The form is ready for testing and can be connected to your preferred workflow before launch.</p>
           </div>
           <form class="quote-form" id="quoteForm" novalidate>
-            <!-- TODO: Connect this form to Formspree, Netlify Forms, Airtable, or a custom endpoint before launch. -->
             <div class="form-status" id="formStatus" role="status" aria-live="polite" tabindex="-1"></div>
             <div class="field-group">
               <label for="fullName">Full name <span aria-hidden="true">*</span></label>

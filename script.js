@@ -96,7 +96,7 @@ quoteForm?.querySelectorAll("[data-required-checkbox-group] input").forEach((fie
   field.addEventListener("change", () => clearFieldError(field.closest("[data-required-checkbox-group]")));
 });
 
-quoteForm?.addEventListener("submit", (event) => {
+quoteForm?.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const requiredFields = [
@@ -124,10 +124,29 @@ quoteForm?.addEventListener("submit", (event) => {
 
   console.log("Dala quote request", quoteRequest);
 
-  formStatus.textContent = "Your quote request has been captured. Connect this form to your preferred email, CRM, or form service before launch.";
-  formStatus.classList.add("is-visible");
-  formStatus.focus?.();
-  quoteForm.reset();
+  const submitButton = quoteForm.querySelector(".form-submit");
+  const originalButtonText = submitButton?.textContent || "Request a Quote";
+
+  setFormStatus("Sending your quote request...", "pending");
+
+  if (submitButton) {
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+  }
+
+  try {
+    await window.DalaEmailJS.sendQuoteRequest(quoteRequest);
+    setFormStatus("Thanks. Your quote request has been sent to Dala.", "success");
+    quoteForm.reset();
+  } catch (error) {
+    console.error("EmailJS quote request failed. Try email tieg@dala.co.za directly", error);
+    setFormStatus("We could not send your request yet. Try email tieg@dala.co.za directly.", "error");
+  } finally {
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = originalButtonText;
+    }
+  }
 });
 
 function isValidField(field) {
@@ -173,6 +192,17 @@ function focusInvalidField(field) {
   }
 
   field.focus();
+}
+
+function setFormStatus(message, type) {
+  if (!formStatus) {
+    return;
+  }
+
+  formStatus.textContent = message;
+  formStatus.dataset.status = type;
+  formStatus.classList.add("is-visible");
+  formStatus.focus?.();
 }
 
 function closeMobileMenu() {

@@ -997,8 +997,28 @@ select[aria-invalid="true"],
   display: block;
 }
 
+.form-status[data-status="pending"] {
+  background: #fff4dd;
+  color: #7a4a00;
+}
+
+.form-status[data-status="success"] {
+  background: #e9f5ec;
+  color: #1e5a2c;
+}
+
+.form-status[data-status="error"] {
+  background: #fff0ed;
+  color: var(--color-accent-dark);
+}
+
 .form-submit {
   width: 100%;
+}
+
+.form-submit:disabled {
+  opacity: 0.72;
+  cursor: wait;
 }
 
 .faq-list {
