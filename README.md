@@ -49,13 +49,13 @@ Partner logos are currently text placeholders in `index.html`.
 Replace every placeholder WhatsApp link:
 
 ```text
-https://wa.me/00000000000
+https://wa.me/27810190785
 ```
 
 Replace placeholder email links:
 
 ```text
-sales@example.com
+tieg@dala.co.za
 ```
 
 Also update the JSON-LD contact details in the `<head>` of `index.html`.
