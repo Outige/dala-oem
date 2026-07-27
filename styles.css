@@ -556,6 +556,66 @@ details,
   color: var(--color-accent);
 }
 
+.promo-video {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.6rem);
+  align-items: center;
+  margin-top: clamp(2rem, 5vw, 3.5rem);
+  padding: clamp(1rem, 3vw, 1.35rem);
+  background:
+    linear-gradient(135deg, rgba(198, 61, 50, 0.08), transparent 48%),
+    linear-gradient(225deg, rgba(17, 107, 109, 0.08), transparent 54%),
+    rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+}
+
+.promo-video-copy {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.promo-video-copy h3 {
+  max-width: 15ch;
+  color: var(--color-graphite);
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+  line-height: 1.08;
+}
+
+.promo-video-copy p:not(.eyebrow) {
+  max-width: 58ch;
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.promo-video-frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 220px;
+  background: var(--color-ink);
+  border: 1px solid rgba(17, 24, 31, 0.14);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 42px rgba(17, 24, 31, 0.16);
+}
+
+.promo-video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.promo-video-link {
+  width: max-content;
+  color: var(--color-accent-dark);
+  font-weight: 900;
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
+}
+
 .product-card {
   display: flex;
   overflow: hidden;
@@ -1275,6 +1335,10 @@ details p {
 
   #offering .capability-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .promo-video {
+    grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
   }
 
   .product-grid {
