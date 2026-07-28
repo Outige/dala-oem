@@ -252,7 +252,7 @@ textarea {
   background:
     linear-gradient(90deg, rgba(13, 18, 23, 0.86) 0%, rgba(13, 18, 23, 0.66) 47%, rgba(13, 18, 23, 0.22) 100%),
     linear-gradient(0deg, rgba(13, 18, 23, 0.38), rgba(13, 18, 23, 0.1)),
-    url("assets/Factory1.webp") center / cover no-repeat;
+    url("assets/spice-jar-green.jpg") center / cover no-repeat;
   padding-block: clamp(4rem, 10vw, 8rem) clamp(3rem, 8vw, 6rem);
 }
 
