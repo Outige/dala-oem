@@ -221,92 +221,66 @@ function initStatsCarousel(carousel) {
 
   const viewport = carousel.querySelector("[data-stats-carousel-viewport]");
   const cards = [...carousel.querySelectorAll(".stat-card")];
-  const track = carousel.querySelector("[data-stats-carousel-track]");
-  const dotsContainer = carousel.querySelector("[data-stats-carousel-dots]");
+  const previousButton = carousel.querySelector("[data-stats-carousel-prev]");
+  const nextButton = carousel.querySelector("[data-stats-carousel-next]");
 
-  if (!viewport || !track || cards.length === 0 || !dotsContainer) {
+  if (!viewport || cards.length === 0 || !previousButton || !nextButton) {
     return;
   }
 
-  let activeIndex = 0;
-  let autoplayId;
   let slideWidth = 0;
+  let scrollFrame;
 
   cards.forEach((card) => {
-    const clone = card.cloneNode(true);
-
-    clone.setAttribute("aria-hidden", "true");
-    track.append(clone);
-  });
-
-  const dots = cards.map((card, index) => {
     card.setAttribute("aria-label", `${card.querySelector("strong")?.textContent || ""} ${card.querySelector("span")?.textContent || ""}`.trim());
-
-    const dot = document.createElement("button");
-    dot.className = "stats-carousel-dot";
-    dot.type = "button";
-    dot.setAttribute("aria-label", `Show factory stat ${index + 1}`);
-    dot.addEventListener("click", () => {
-      goToCard(index);
-      startAutoplay();
-    });
-    dotsContainer.append(dot);
-
-    return dot;
   });
 
   measureSlideWidth();
-  updateActiveDot();
+  updateControls();
 
-  viewport.addEventListener("wheel", (event) => event.preventDefault(), { passive: false });
-  viewport.addEventListener("touchmove", (event) => event.preventDefault(), { passive: false });
+  previousButton.addEventListener("click", () => {
+    scrollByCard(-1);
+  });
+
+  nextButton.addEventListener("click", () => {
+    scrollByCard(1);
+  });
+
+  viewport.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      scrollByCard(-1);
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      scrollByCard(1);
+    }
+  });
+
+  viewport.addEventListener("scroll", () => {
+    if (scrollFrame) {
+      return;
+    }
+
+    scrollFrame = requestAnimationFrame(() => {
+      scrollFrame = undefined;
+      updateControls();
+    });
+  }, { passive: true });
 
   window.addEventListener("resize", () => {
     measureSlideWidth();
-    moveTrack(false);
+    updateControls();
   });
 
-  prefersReducedMotion.addEventListener?.("change", () => {
-    if (prefersReducedMotion.matches) {
-      stopAutoplay();
-      goToCard(0, false);
-    } else {
-      startAutoplay();
-    }
-  });
+  prefersReducedMotion.addEventListener?.("change", updateControls);
 
-  startAutoplay();
-
-  function goToCard(index, animate = true) {
-    const nextIndex = (index + cards.length) % cards.length;
-
-    activeIndex = nextIndex;
-    moveTrack(animate);
-    updateActiveDot();
-  }
-
-  function moveTrack(animate = true) {
-    track.classList.toggle("is-resetting", !animate || prefersReducedMotion.matches);
-    track.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
-
-    if (!animate || prefersReducedMotion.matches) {
-      requestAnimationFrame(() => track.classList.remove("is-resetting"));
-    }
-  }
-
-  function advance() {
-    activeIndex += 1;
-    track.classList.remove("is-resetting");
-    track.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
-    updateActiveDot(activeIndex % cards.length);
-
-    if (activeIndex === cards.length) {
-      window.setTimeout(() => {
-        activeIndex = 0;
-        moveTrack(false);
-        updateActiveDot();
-      }, 540);
-    }
+  function scrollByCard(direction) {
+    viewport.scrollBy({
+      left: direction * slideWidth,
+      behavior: prefersReducedMotion.matches ? "auto" : "smooth"
+    });
   }
 
   function measureSlideWidth() {
@@ -316,28 +290,13 @@ function initStatsCarousel(carousel) {
     slideWidth = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
   }
 
-  function updateActiveDot(index = activeIndex) {
-    const visibleIndex = index % cards.length;
+  function updateControls() {
+    const maxScrollLeft = viewport.scrollWidth - viewport.clientWidth;
+    const scrollLeft = viewport.scrollLeft;
+    const atStart = scrollLeft <= 1;
+    const atEnd = scrollLeft >= maxScrollLeft - 1;
 
-    dots.forEach((dot, index) => {
-      const isActive = index === visibleIndex;
-
-      dot.classList.toggle("is-active", isActive);
-      dot.setAttribute("aria-current", isActive ? "true" : "false");
-    });
-  }
-
-  function stopAutoplay() {
-    clearInterval(autoplayId);
-  }
-
-  function startAutoplay() {
-    stopAutoplay();
-
-    if (prefersReducedMotion.matches || cards.length < 2) {
-      return;
-    }
-
-    autoplayId = setInterval(advance, 4500);
+    previousButton.disabled = atStart;
+    nextButton.disabled = atEnd;
   }
 }
