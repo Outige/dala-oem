@@ -5,6 +5,8 @@ const currentYear = document.querySelector("#year");
 const heroImage = document.querySelector(".hero-media img");
 const menuToggle = document.querySelector(".menu-toggle");
 const primaryNav = document.querySelector("#primaryNav");
+const statsCarousel = document.querySelector("[data-stats-carousel]");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 if (currentYear) {
   currentYear.textContent = new Date().getFullYear();
@@ -24,6 +26,8 @@ menuToggle?.addEventListener("click", () => {
 primaryNav?.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => closeMobileMenu());
 });
+
+initStatsCarousel(statsCarousel);
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
@@ -208,4 +212,132 @@ function setFormStatus(message, type) {
 function closeMobileMenu() {
   menuToggle?.setAttribute("aria-expanded", "false");
   primaryNav?.classList.remove("is-open");
+}
+
+function initStatsCarousel(carousel) {
+  if (!carousel) {
+    return;
+  }
+
+  const viewport = carousel.querySelector("[data-stats-carousel-viewport]");
+  const cards = [...carousel.querySelectorAll(".stat-card")];
+  const track = carousel.querySelector("[data-stats-carousel-track]");
+  const dotsContainer = carousel.querySelector("[data-stats-carousel-dots]");
+
+  if (!viewport || !track || cards.length === 0 || !dotsContainer) {
+    return;
+  }
+
+  let activeIndex = 0;
+  let autoplayId;
+  let slideWidth = 0;
+
+  cards.forEach((card) => {
+    const clone = card.cloneNode(true);
+
+    clone.setAttribute("aria-hidden", "true");
+    track.append(clone);
+  });
+
+  const dots = cards.map((card, index) => {
+    card.setAttribute("aria-label", `${card.querySelector("strong")?.textContent || ""} ${card.querySelector("span")?.textContent || ""}`.trim());
+
+    const dot = document.createElement("button");
+    dot.className = "stats-carousel-dot";
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Show factory stat ${index + 1}`);
+    dot.addEventListener("click", () => {
+      goToCard(index);
+      startAutoplay();
+    });
+    dotsContainer.append(dot);
+
+    return dot;
+  });
+
+  measureSlideWidth();
+  updateActiveDot();
+
+  viewport.addEventListener("wheel", (event) => event.preventDefault(), { passive: false });
+  viewport.addEventListener("touchmove", (event) => event.preventDefault(), { passive: false });
+
+  window.addEventListener("resize", () => {
+    measureSlideWidth();
+    moveTrack(false);
+  });
+
+  prefersReducedMotion.addEventListener?.("change", () => {
+    if (prefersReducedMotion.matches) {
+      stopAutoplay();
+      goToCard(0, false);
+    } else {
+      startAutoplay();
+    }
+  });
+
+  startAutoplay();
+
+  function goToCard(index, animate = true) {
+    const nextIndex = (index + cards.length) % cards.length;
+
+    activeIndex = nextIndex;
+    moveTrack(animate);
+    updateActiveDot();
+  }
+
+  function moveTrack(animate = true) {
+    track.classList.toggle("is-resetting", !animate || prefersReducedMotion.matches);
+    track.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
+
+    if (!animate || prefersReducedMotion.matches) {
+      requestAnimationFrame(() => track.classList.remove("is-resetting"));
+    }
+  }
+
+  function advance() {
+    activeIndex += 1;
+    track.classList.remove("is-resetting");
+    track.style.transform = `translateX(${-activeIndex * slideWidth}px)`;
+    updateActiveDot(activeIndex % cards.length);
+
+    if (activeIndex === cards.length) {
+      window.setTimeout(() => {
+        activeIndex = 0;
+        moveTrack(false);
+        updateActiveDot();
+      }, 540);
+    }
+  }
+
+  function measureSlideWidth() {
+    const firstCard = cards[0];
+    const secondCard = cards[1];
+
+    slideWidth = secondCard ? secondCard.offsetLeft - firstCard.offsetLeft : firstCard.offsetWidth;
+  }
+
+  function updateActiveDot(index = activeIndex) {
+    const visibleIndex = index % cards.length;
+
+    dots.forEach((dot, index) => {
+      const isActive = index === visibleIndex;
+
+      dot.classList.toggle("is-active", isActive);
+      dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayId);
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+
+    if (prefersReducedMotion.matches || cards.length < 2) {
+      return;
+    }
+
+    autoplayId = setInterval(advance, 4500);
+  }
 }
