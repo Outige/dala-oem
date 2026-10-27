@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A visual sourcing catalogue of the packaging formats currently used by Dala.">
+  <title>Dala Packaging Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Dala packaging library home">
+      <span class="brand-mark">D</span>
+      <span><strong>DALA</strong><small>PACKAGING LIBRARY</small></span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#actual">Actual packaging</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#supplier-brief">Supplier brief</a>
+    </nav>
+    <button class="shortlist-button" type="button" data-open-shortlist>
+      Shortlist <span data-shortlist-count>0</span>
+    </button>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Packaging sourcing catalogue · 2026</p>
+        <h1>The shapes that<br><em>hold our ideas.</em></h1>
+        <p class="hero-intro">A visual record of the containers Dala uses across paint, dough and creative products—prepared to help packaging partners identify and supply close equivalents.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#actual">View actual packaging <span>↓</span></a>
+          <a class="button button-quiet" href="#supplier-brief">Read sourcing notes</a>
+        </div>
+        <div class="hero-stats" aria-label="Catalogue summary">
+          <div><strong>25</strong><span>images catalogued</span></div>
+          <div><strong>3</strong><span>packaging families</span></div>
+          <div><strong>5</strong><span>actual photo boards</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <span class="scribble" aria-hidden="true">source<br>something<br>like this</span>
+        <img src="assets/PAINT CONTAINERS.png" alt="Dala's actual range of paint bottles, jars and dispensing containers" fetchpriority="high">
+        <span class="photo-stamp">ACTUAL DALA PACKAGING</span>
+      </div>
+    </section>
+
+    <section class="intro-band" id="actual">
+      <div>
+        <p class="eyebrow">Start here</p>
+        <h2>What we actually use</h2>
+      </div>
+      <p>These original photography boards are the most reliable sourcing reference. They show real proportions, closures and silhouettes from Dala’s current packaging set. Open any board to inspect it at full size.</p>
+    </section>
+
+    <section class="actual-grid" aria-label="Actual packaging photography">
+      <button class="feature-card feature-wide" data-lightbox="assets/ALL CONTAINERS_2.png" data-title="Complete bottle & jar lineup">
+        <img src="assets/ALL CONTAINERS_2.png" alt="Complete lineup of actual Dala containers" loading="lazy">
+        <span class="feature-meta"><b>01 / Complete lineup</b><small>Bottles · jars · dispensers</small></span>
+        <span class="source-tag actual">Actual photography</span>
+      </button>
+      <button class="feature-card" data-lightbox="assets/DOUGH CONTAINERS.png" data-title="Dough container lineup">
+        <img src="assets/DOUGH CONTAINERS.png" alt="Actual Dala dough tubs in four sizes" loading="lazy">
+        <span class="feature-meta"><b>02 / Dough containers</b><small>Round tubs · press-fit lids</small></span>
+        <span class="source-tag actual">Actual photography</span>
+      </button>
+      <button class="feature-card dark-card" data-lightbox="assets/DOUGH CONTAINERS_2.png" data-title="Dough tubs grouped">
+        <img src="assets/DOUGH CONTAINERS_2.png" alt="Actual Dala dough containers grouped together" loading="lazy">
+        <span class="feature-meta"><b>03 / Dough family</b><small>Scale & closure comparison</small></span>
+        <span class="source-tag actual">Actual photography</span>
+      </button>
+      <button class="feature-card" data-lightbox="assets/PAINT CONTAINERS.png" data-title="Paint packaging family">
+        <img src="assets/PAINT CONTAINERS.png" alt="Actual Dala paint packaging family" loading="lazy">
+        <span class="feature-meta"><b>04 / Paint containers</b><small>Bottles · jars · applicators</small></span>
+        <span class="source-tag actual">Actual photography</span>
+      </button>
+      <button class="feature-card feature-wide" data-lightbox="assets/ALL CONTAINERS_3.png" data-title="Complete packaging lineup alternate">
+        <img src="assets/ALL CONTAINERS_3.png" alt="Alternate actual Dala container lineup" loading="lazy">
+        <span class="feature-meta"><b>05 / Full family alternate</b><small>Relative size reference</small></span>
+        <span class="source-tag actual">Actual photography</span>
+      </button>
+    </section>
+
+    <section class="catalogue-section" id="catalogue">
+      <div class="section-heading">
+        <div><p class="eyebrow">Shape index</p><h2>Individual packaging formats</h2></div>
+        <p>Isolated reference renders make shapes easier to compare. Use the photography above for final matching and request samples before confirming specifications.</p>
+      </div>
+      <div class="filter-row" role="group" aria-label="Filter packaging formats">
+        <button class="filter active" data-filter="all">All formats <span>20</span></button>
+        <button class="filter" data-filter="bottles">Bottles <span>9</span></button>
+        <button class="filter" data-filter="jars">Jars <span>4</span></button>
+        <button class="filter" data-filter="tubs">Tubs <span>4</span></button>
+        <button class="filter" data-filter="dispensers">Dispensers <span>3</span></button>
+      </div>
+      <div class="product-grid" id="product-grid"></div>
+    </section>
+
+    <section class="supplier-brief" id="supplier-brief">
+      <div class="brief-heading">
+        <p class="eyebrow light">For prospective suppliers</p>
+        <h2>Matching the pack<br>is only the start.</h2>
+        <p>We’re looking for manufacturers and distributors who can supply comparable packaging reliably and consistently.</p>
+      </div>
+      <div class="brief-list">
+        <article><span>01</span><div><h3>Match the physical sample</h3><p>Capacity, neck finish, closure fit, wall weight and overall dimensions must be confirmed against a physical Dala sample.</p></div></article>
+        <article><span>02</span><div><h3>Confirm compatibility</h3><p>Materials and closures should be suitable for the intended paint, glue, medium, dough or creative product formulation.</p></div></article>
+        <article><span>03</span><div><h3>Quote the complete supply</h3><p>Include container, closure, liner or seal where relevant, MOQ, lead time, tooling, colour options and delivery terms.</p></div></article>
+        <article><span>04</span><div><h3>Send production samples</h3><p>Digital images are visual references only. Dala will test real samples before approving any replacement format.</p></div></article>
+      </div>
+    </section>
+
+    <section class="cta">
+      <span class="cta-number">25</span>
+      <div><p class="eyebrow">Build a supplier enquiry</p><h2>Found a format<br>you can supply?</h2></div>
+      <div><p>Add relevant formats to your shortlist, then copy a ready-made enquiry list to share with your packaging team.</p><button class="button button-primary" data-open-shortlist>Review shortlist <span>→</span></button></div>
+    </section>
+  </main>
+
+  <footer><div class="brand footer-brand"><span class="brand-mark">D</span><span><strong>DALA</strong><small>PACKAGING LIBRARY</small></span></div><p>Visual reference catalogue for packaging sourcing.<br>Final specifications subject to physical sample approval.</p><a href="#top">Back to top ↑</a></footer>
+
+  <dialog class="lightbox" id="lightbox"><button class="dialog-close" aria-label="Close image">×</button><div class="lightbox-stage"><img alt=""><p></p></div></dialog>
+  <dialog class="shortlist-panel" id="shortlist-dialog"><button class="dialog-close" aria-label="Close shortlist">×</button><p class="eyebrow">Supplier enquiry</p><h2>Your shortlist</h2><p class="dialog-intro">Use this list to start a conversation with a packaging supplier. Physical samples remain the final specification.</p><div id="shortlist-items"></div><div class="empty-shortlist">No formats selected yet.<br>Add items from the catalogue.</div><button class="button button-primary copy-button" type="button">Copy enquiry list</button></dialog>
+  <div class="toast" role="status" aria-live="polite">Enquiry list copied</div>
+  <script src="script.js"></script>
+</body>
+</html>
