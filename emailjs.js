@@ -2,7 +2,8 @@
   const config = {
     publicKey: "WhZnrWkIM9ip7pSv0",
     serviceId: "service_1zkjral",
-    templateId: "template_l0upgcr",
+    quoteTemplateId: "template_l0upgcr",
+    onboardingTemplateId: "template_o19b68s",
     toEmail: "tieg@dala.co.za"
   };
 
@@ -12,8 +13,12 @@
     return typeof value === "string" && value.trim().length > 0 && !placeholderPattern.test(value);
   }
 
-  function isConfigured() {
-    return hasValue(config.publicKey) && hasValue(config.serviceId) && hasValue(config.templateId);
+  function isQuoteConfigured() {
+    return hasValue(config.publicKey) && hasValue(config.serviceId) && hasValue(config.quoteTemplateId);
+  }
+
+  function isOnboardingConfigured() {
+    return hasValue(config.publicKey) && hasValue(config.serviceId) && hasValue(config.onboardingTemplateId);
   }
 
   function initEmailJS() {
@@ -57,13 +62,13 @@
       throw new Error("EmailJS did not load. Check the CDN script in index.html.");
     }
 
-    if (!isConfigured()) {
+    if (!isQuoteConfigured()) {
       throw new Error("EmailJS is missing a service ID or template ID in emailjs.js.");
     }
 
     return window.emailjs.send(
       config.serviceId,
-      config.templateId,
+      config.quoteTemplateId,
       buildTemplateParams(quoteRequest)
     );
   }
@@ -72,7 +77,9 @@
 
   window.DalaEmailJS = {
     config,
-    isConfigured,
+    isConfigured: isQuoteConfigured,
+    isQuoteConfigured,
+    isOnboardingConfigured,
     sendQuoteRequest
   };
 })();

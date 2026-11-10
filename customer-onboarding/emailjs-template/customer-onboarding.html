@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <body style="margin:0;padding:0;background:#f3f3f2;color:#202428;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f3f3f2;">
+      <tr>
+        <td align="center" style="padding:24px 12px;">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:760px;background:#ffffff;border:1px solid #dfe3e5;border-radius:14px;">
+            <tr>
+              <td style="padding:28px 32px;background:#231f20;border-radius:14px 14px 0 0;color:#ffffff;">
+                <div style="font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#ffb5b8;">Dala customer onboarding</div>
+                <h1 style="margin:8px 0 0;font-size:25px;line-height:1.25;">New COD account application</h1>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:26px 32px;">
+                <p style="margin:0 0 18px;font-size:15px;line-height:1.5;">
+                  A new application was submitted by <strong>{{full_name}}</strong> for <strong>{{company_name}}</strong>.
+                </p>
+
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-bottom:24px;background:#f5f6f6;border:1px solid #dfe3e5;border-radius:10px;">
+                  <tr>
+                    <td style="padding:14px 16px;font-size:13px;line-height:1.6;">
+                      <strong>Contact:</strong> {{full_name}}<br>
+                      <strong>Email:</strong> <a href="mailto:{{email}}" style="color:#a90f15;">{{email}}</a><br>
+                      <strong>Cell:</strong> {{phone}}<br>
+                      <strong>Submitted:</strong> {{submitted_at}}
+                    </td>
+                  </tr>
+                </table>
+
+                <h2 style="margin:0 0 12px;font-size:18px;color:#a90f15;">Complete application</h2>
+                <div style="margin:0;padding:18px;background:#fafafa;border:1px solid #dfe3e5;border-radius:10px;font-family:Consolas,'Courier New',monospace;font-size:13px;line-height:1.65;white-space:pre-wrap;word-break:break-word;">{{message}}</div>
+
+                <p style="margin:22px 0 0;font-size:13px;line-height:1.5;color:#687178;">
+                  Replying to this email will reply to {{full_name}} at {{reply_to}}.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px;border-top:1px solid #dfe3e5;font-size:12px;color:#687178;">
+                K.V. Art (Pty) Ltd · Dala COD customer account application
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
